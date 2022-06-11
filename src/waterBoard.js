@@ -5,7 +5,8 @@ class WaterBoard {
   }
   calcGuestBill() {
     const guestCount = this.apartmentDetails['guest'];
-    const quantity = guestCount * 300;
+    const capacity = 300;
+    const quantity = guestCount * capacity;
     let value = 0;
     let volume = quantity;
     const rateList = [3000, 8, 1500, 5, 500, 3];
@@ -16,7 +17,8 @@ class WaterBoard {
         volume = rateList[i];
       }
     }
-    const remCost = volume * 2;
+    const rate = 2;
+    const remCost = volume * rate;
     const cost = value + remCost;
     return { quantity, cost };
   }
@@ -32,10 +34,11 @@ class WaterBoard {
   }
   fetchBill() {
     const type = this.apartmentDetails.type;
+    const capacity = { type2: 900, type3: 1500 };
     if (type == '2') {
-      return this.calcBill(900);
+      return this.calcBill(capacity.type2);
     }
-    return this.calcBill(1500);
+    return this.calcBill(capacity.type3);
   }
   addGuests(count) {
     let guestPresent = this.apartmentDetails.guest;
