@@ -22,15 +22,12 @@ class WaterBoard {
   }
   calcBill(total) {
     const { volume, cost } = this.calcGuestBill();
-    const corporationRatio = this.apartmentDetails['corporation'];
-    const borewellRatio = this.apartmentDetails['borewell'];
-    console.log(corporationRatio, borewellRatio);
-    const corporationQuantity =
-      (total * corporationRatio) / (corporationRatio + borewellRatio);
-    const borewellQuantity =
-      (total * borewellRatio) / (corporationRatio + borewellRatio);
-    const totalQuantity = corporationQuantity + borewellQuantity + volume;
-    const totalCost = corporationQuantity + borewellQuantity * 1.5 + cost;
+    const crpRatio = this.apartmentDetails['corporation'];
+    const borRatio = this.apartmentDetails['borewell'];
+    const crpVol = (total * crpRatio) / (crpRatio + borRatio);
+    const borVol = (total * borRatio) / (crpRatio + borRatio);
+    const totalQuantity = crpVol + borVol + volume;
+    const totalCost = crpVol + borVol * 1.5 + cost;
     return { totalQuantity, totalCost };
   }
   fetchBill() {
