@@ -48,14 +48,11 @@ class WaterBoard {
     this.apartmentDetails['borewell'] = borewell;
   }
   getBill() {
-    for (let i = 0; i < this.commands.length - 1; i++) {
-      if (this.commands[i][0] == 'ALLOT_WATER') {
-        this.allotWater(this.commands[i][1], this.commands[i][2]);
-      }
-      if (this.commands[i][0] == 'ADD_GUESTS') {
-        this.addGuests(this.commands[i][1]);
-      }
-    }
+    this.commands.pop();
+    this.commands.forEach((cmd) => {
+      if (cmd[0] == 'ALLOT_WATER') this.allotWater(cmd[1], cmd[2]);
+      if (cmd[0] == 'ADD_GUESTS') this.addGuests(cmd[1]);
+    });
     return this.fetchBill();
   }
 }
