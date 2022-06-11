@@ -26,8 +26,8 @@ class WaterBoard {
     const borRatio = Number(this.apartmentDetails['borewell']);
     const crpVol = (total * crpRatio) / (crpRatio + borRatio);
     const borVol = (total * borRatio) / (crpRatio + borRatio);
-    const totalVol = crpVol + borVol + quantity;
-    const totalCost = crpVol + borVol * 1.5 + cost;
+    const totalVol = Math.floor(crpVol + borVol + quantity);
+    const totalCost = Math.floor(crpVol + borVol * 1.5 + cost);
     return { totalVol, totalCost };
   }
   fetchBill() {
