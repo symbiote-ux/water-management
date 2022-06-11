@@ -7,7 +7,7 @@ const main = () => {
   const content = fs.readFileSync(fileName, 'utf8');
   const commands = parseInput(content);
   const waterBoard = new WaterBoard(commands);
-  const bill = waterBoard.getBill();
-  console.log(bill);
+  const { totalVol, totalCost } = waterBoard.getBill();
+  console.log(totalVol, totalCost);
 };
 main();

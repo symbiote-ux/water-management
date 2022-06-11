@@ -18,17 +18,17 @@ class WaterBoard {
     }
     const remCost = volume * 2;
     const cost = value + remCost;
-    return { volume, cost };
+    return { quantity, cost };
   }
   calcBill(total) {
-    const { volume, cost } = this.calcGuestBill();
-    const crpRatio = this.apartmentDetails['corporation'];
-    const borRatio = this.apartmentDetails['borewell'];
+    const { quantity, cost } = this.calcGuestBill();
+    const crpRatio = Number(this.apartmentDetails['corporation']);
+    const borRatio = Number(this.apartmentDetails['borewell']);
     const crpVol = (total * crpRatio) / (crpRatio + borRatio);
     const borVol = (total * borRatio) / (crpRatio + borRatio);
-    const totalQuantity = crpVol + borVol + volume;
+    const totalVol = crpVol + borVol + quantity;
     const totalCost = crpVol + borVol * 1.5 + cost;
-    return { totalQuantity, totalCost };
+    return { totalVol, totalCost };
   }
   fetchBill() {
     const type = this.apartmentDetails.type;
@@ -48,19 +48,15 @@ class WaterBoard {
     this.apartmentDetails['borewell'] = borewell;
   }
   getBill() {
-    this.commands.forEach((cmd) => {
-      switch (cmd[0]) {
-        case 'ALLOT_WATER':
-          this.allotWater(cmd[1], cmd[2]);
-          break;
-        case 'ADD_GUESTS':
-          this.addGuests(cmd[1]);
-          break;
-        case 'BILL':
-          this.fetchBill();
-          break;
+    for (let i = 0; i < this.commands.length - 1; i++) {
+      if (this.commands[i][0] == 'ALLOT_WATER') {
+        this.allotWater(this.commands[i][1], this.commands[i][2]);
       }
-    });
+      if (this.commands[i][0] == 'ADD_GUESTS') {
+        this.addGuests(this.commands[i][1]);
+      }
+    }
+    return this.fetchBill();
   }
 }
 
