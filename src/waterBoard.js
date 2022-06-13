@@ -13,7 +13,7 @@ class WaterBoard {
     for (let i = 0; i < rateList.length; i += 2) {
       if (volume > rateList[i]) {
         volume = volume - rateList[i];
-        value = volume * rateList[i + 1];
+        value += volume * rateList[i + 1];
         volume = rateList[i];
       }
     }
@@ -26,10 +26,10 @@ class WaterBoard {
     const { quantity, cost } = this.calcGuestBill();
     const crpRatio = Number(this.apartmentDetails['corporation']);
     const borRatio = Number(this.apartmentDetails['borewell']);
-    const crpVol = (total * crpRatio) / (crpRatio + borRatio);
-    const borVol = (total * borRatio) / (crpRatio + borRatio);
-    const totalVol = Math.floor(crpVol + borVol + quantity);
-    const totalCost = Math.floor(crpVol + borVol * 1.5 + cost);
+    const crpVol = Math.floor((total * crpRatio) / (crpRatio + borRatio));
+    const borVol = total - crpVol;
+    const totalVol = crpVol + borVol + quantity;
+    const totalCost = crpVol + Math.ceil(borVol * 1.5) + cost;
     return { totalVol, totalCost };
   }
   fetchBill() {
