@@ -4,38 +4,19 @@ class WaterBoard {
     this.apartmentDetails = { guest: 0 };
     this.borewellRate = 1.5;
     this.personCapacity = 300;
-    this.slabRate = [3000, 8, 1500, 5, 500, 3];
+    this.slabRate = [3000, 8, 1500, 5, 500, 3, 0, 2];
   }
-  estimateCost(volume) {
+  calcGuestBill() {
+    const guestCount = this.apartmentDetails['guest'];
+    const quantity = guestCount * this.personCapacity;
     let cost = 0;
     for (let i = 0; i < this.slabRate.length; i += 2) {
       if (volume > this.slabRate[i]) {
         volume -= this.slabRate[i];
         cost += volume * this.slabRate[i + 1];
-        volume = thi.slabRate[i];
+        volume = this.slabRate[i];
       }
     }
-    return {cost,}
-  }
-  calcGuestBill() {
-    const guestCount = this.apartmentDetails['guest'];
-    const quantity = guestCount * this.personCapacity;
-
-    // const guestCount = this.apartmentDetails['guest'];
-    // const capacity = 300;
-    // const quantity = guestCount * capacity;
-    // let value = 0;
-    // let volume = quantity;
-    // const rateList = [3000, 8, 1500, 5, 500, 3];
-    // for (let i = 0; i < rateList.length; i += 2) {
-    //   if (volume > rateList[i]) {
-    //     volume = volume - rateList[i];
-    //     value += volume * rateList[i + 1];
-    //     volume = rateList[i];
-    //   }
-    // }
-    // const rate = 2;
-    const cost = value + volume * rate;
     return { quantity, cost };
   }
   getVolume(total) {
