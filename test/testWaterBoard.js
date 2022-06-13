@@ -24,7 +24,7 @@ describe('WaterBoard', () => {
         ['BILL'],
       ];
       const waterBoard = new WaterBoard(commands);
-      const expected = { guest: 0, type: '2', corporation: '3', borewell: '7' };
+      const expected = { guest: 0, type: '2', corp: 3, borewell: 7 };
       waterBoard.allotWater('2', '3:7');
       assert.deepStrictEqual(waterBoard.apartmentDetails, expected);
     });
@@ -76,6 +76,14 @@ describe('WaterBoard', () => {
         totalVol: 2400,
         totalCost: 5215,
       });
+    });
+  });
+  describe('getVolume', () => {
+    it('should return volume of water consumption', () => {
+      const commands = [['ALLOT_WATER', '2', '3:7'], ['BILL']];
+      const waterBoard = new WaterBoard(commands);
+      waterBoard.allotWater('2', '3:7');
+      assert.deepStrictEqual(waterBoard.getVolume(900), 270);
     });
   });
   describe('calcGuestBill', () => {

@@ -10,6 +10,7 @@ class WaterBoard {
     const guestCount = this.apartmentDetails['guest'];
     const quantity = guestCount * this.personCapacity;
     let cost = 0;
+    let volume = quantity;
     for (let i = 0; i < this.slabRate.length; i += 2) {
       if (volume > this.slabRate[i]) {
         volume -= this.slabRate[i];
@@ -20,8 +21,8 @@ class WaterBoard {
     return { quantity, cost };
   }
   getVolume(total) {
-    const corpRatio = Number(this.apartmentDetails['corp']);
-    const borRatio = Number(this.apartmentDetails['boreWell']);
+    const corpRatio = this.apartmentDetails['corp'];
+    const borRatio = this.apartmentDetails['borewell'];
     return Math.floor((total * corpRatio) / (corpRatio + borRatio));
   }
   calcBill(total) {
@@ -47,8 +48,8 @@ class WaterBoard {
   allotWater(type, ratio) {
     this.apartmentDetails['type'] = type;
     const [corp, borewell] = ratio.split(':');
-    this.apartmentDetails['corp'] = corp;
-    this.apartmentDetails['borewell'] = borewell;
+    this.apartmentDetails['corp'] = Number(corp);
+    this.apartmentDetails['borewell'] = Number(borewell);
   }
   parse(command) {
     if (command[0] == 'ALLOT_WATER') {
